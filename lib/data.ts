@@ -66,6 +66,7 @@ const STATIC_POSTS: Post[] = [
     image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80", // 주황(일몰)
     category: "insights",
     topics: ["Insights", "Hiring", "Report", "Research"],
+    featured: true,
   },
   {
     id: "3",
@@ -288,6 +289,17 @@ const STATIC_POSTS: Post[] = [
 // 정적 + rss-filter-bot 동적 포스트 병합
 export const POSTS: Post[] = [...STATIC_POSTS, ...dynamicPosts];
 
+/** 인기글 (featured) 최대 limit개, 부족하면 최신순으로 채움 */
+export function getFeaturedPosts(limit = 2): Post[] {
+  const featured = POSTS.filter((p) => p.featured);
+  if (featured.length >= limit) {
+    return [...featured]
+      .sort((a, b) => (b.date > a.date ? 1 : -1))
+      .slice(0, limit);
+  }
+  return getLatestPosts(limit);
+}
+
 export function getLatestPosts(limit = 12): Post[] {
   return [...POSTS]
     .sort((a, b) => {
@@ -303,4 +315,41 @@ export function getPostsByCategory(category: Category): Post[] {
 
 export function getPostBySlug(slug: string): Post | undefined {
   return POSTS.find((p) => p.slug === slug);
+}
+
+function toTopicSlugForMatch(t: string) {
+  return t.toLowerCase().replace(/\s+/g, "-").replace(/&/g, "and");
+}
+
+/** 작성된 글이 많은 순으로 정렬된 토픽 목록 (마퀴 노출용) */
+export function getTopicsSortedByPostCount(): string[] {
+  const counts = new Map<string, number>();
+
+  for (const t of TOPICS) {
+    counts.set(t, 0);
+  }
+
+  for (const post of POSTS) {
+    for (const pt of post.topics) {
+      const s = toTopicSlugForMatch(pt);
+      const match = TOPICS.find((t) => toTopicSlugForMatch(t) === s);
+      if (match) counts.set(match, (counts.get(match) ?? 0) + 1);
+    }
+  }
+
+  return [...TOPICS].sort((a, b) => (counts.get(b) ?? 0) - (counts.get(a) ?? 0));
+}
+
+/** 날짜 최신순 정렬된 포스트 목록에서 이전/다음 글 반환 */
+export function getPrevNextPosts(slug: string): { prev: Post | null; next: Post | null } {
+  const sorted = [...POSTS].sort((a, b) => {
+    if (b.date !== a.date) return b.date > a.date ? 1 : -1;
+    return parseInt(b.id, 10) - parseInt(a.id, 10);
+  });
+  const idx = sorted.findIndex((p) => p.slug === slug);
+  if (idx < 0) return { prev: null, next: null };
+  return {
+    prev: idx > 0 ? sorted[idx - 1]! : null,
+    next: idx < sorted.length - 1 ? sorted[idx + 1]! : null,
+  };
 }

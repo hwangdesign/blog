@@ -56,7 +56,7 @@ const SNS_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="bg-black">
+    <footer className="border-t border-black/20 bg-[var(--background)]">
       <div className={`${CONTAINER} flex flex-col items-center gap-6 py-12 sm:py-16`}>
         <nav className="flex items-center gap-6" aria-label="SNS">
           {SNS_LINKS.map(({ href, label, icon }) => (
@@ -65,14 +65,14 @@ export function Footer() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white transition-opacity hover:opacity-70 focus:opacity-70 focus:outline-none"
+              className="text-black transition-opacity hover:opacity-70 focus:opacity-70 focus:outline-none"
               aria-label={label}
             >
               {icon}
             </a>
           ))}
         </nav>
-        <p className="text-center text-xs text-white/80 sm:text-sm">
+        <p className="text-center text-xs text-black/80 sm:text-sm">
           © texTOText. All rights reserved.
         </p>
       </div>

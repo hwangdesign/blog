@@ -141,7 +141,7 @@ export function Header() {
           <Link
             href="/"
             onClick={closeMenu}
-            className="text-3xl font-semibold text-black sm:text-4xl"
+            className="text-xl font-semibold text-black"
           >
             texttotext
           </Link>

@@ -66,11 +66,10 @@
   /* 자간 기본값 (본문) - 촘촘하게 */
   --letter-spacing: -0.025em;
 
-  /* 토픽 박스 사이즈 */
-  --topic-padding-x: 8px;
-  --topic-padding-y: 4px;
-  --topic-font-size: 0.875rem;  /* 14px */
-  --topic-font-size-lg: 1rem;   /* 16px */
+  /* 토픽 박스 사이즈 (전역 통일, 4단계 업: 12px→24px) */
+  --topic-padding-x: 10px;
+  --topic-padding-y: 6px;
+  --topic-font-size: var(--text-base);  /* 16px */
 
   /* 라이트 모드, 화이트 배경 / 블랙 텍스트 */
   --foreground: #000000;
@@ -111,6 +110,8 @@ body {
 
 /* === 토픽 박스 === */
 .topic-box {
+  display: inline-flex;
+  align-items: center;
   padding: var(--topic-padding-y) var(--topic-padding-x);
   font-size: var(--topic-font-size);
   font-variant: all-small-caps;
@@ -134,12 +135,6 @@ body {
   border-color: #000;
   color: #fff;
 }
-.topic-box--lg {
-  font-size: var(--topic-font-size-lg);
-}
-@media (min-width: 640px) {
-  .topic-box--responsive {
-    font-size: var(--topic-font-size-lg);
-  }
-}
+
+
 

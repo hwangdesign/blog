@@ -13,16 +13,11 @@ export function ArticleCard({ post, size = "default" }: ArticleCardProps) {
     topic.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <article className="group">
-      <Link href={`/post/${post.slug}`} className="block min-h-[44px] min-w-[44px] group">
+    <article>
+      <Link href={`/post/${post.slug}`} className="group block min-h-[44px] min-w-[44px]">
         <div className="relative w-full overflow-hidden bg-slate-200">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={post.image}
-            alt=""
-            loading="lazy"
-            className="block w-full h-auto"
-          />
+          <img src={post.image} alt="" loading="lazy" className="block w-full h-auto" />
         </div>
         <div className={isLarge ? "mt-6 sm:mt-8" : "mt-4 sm:mt-6"}>
           <h2
@@ -37,6 +32,8 @@ export function ArticleCard({ post, size = "default" }: ArticleCardProps) {
           </p>
         </div>
       </Link>
+
+      {/* 토픽 박스: 각각 개별 호버 (topic-box--dark) */}
       <div className="mt-4 flex flex-wrap gap-2">
         {post.topics.slice(0, 3).map((topic) => (
           <Link
