@@ -31,7 +31,7 @@ export function ArticleCard({ post, size = "default" }: ArticleCardProps) {
             aria-hidden
           >
             <div
-              className="absolute left-1/2 top-1/2 w-[8px] h-[300%] bg-[var(--background)] origin-center -translate-x-1/2 -translate-y-1/2 rotate-[45deg] opacity-0 transition-opacity duration-300 ease-out group-hover/image:opacity-100"
+              className="absolute left-1/2 top-1/2 w-[8px] h-[300%] bg-page-same origin-center -translate-x-1/2 -translate-y-1/2 rotate-[45deg] opacity-0 transition-opacity duration-300 ease-out group-hover/image:opacity-100"
             />
           </div>
         </div>

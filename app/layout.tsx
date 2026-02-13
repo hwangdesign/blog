@@ -35,7 +35,7 @@ export default function RootLayout({
       >
         <PageBackgroundProvider>
           <Header />
-          <main className="flex-1 bg-[var(--background)]">{children}</main>
+          <main className="flex-1 bg-page">{children}</main>
           <Footer />
         </PageBackgroundProvider>
       </body>

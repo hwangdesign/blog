@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useDominantColor } from "@/hooks/useDominantColor";
+import { useDominantColors } from "@/hooks/useDominantColor";
 import { usePageBackground } from "@/contexts/PageBackgroundContext";
 
 export function PostPageWithBackground({
@@ -11,18 +11,26 @@ export function PostPageWithBackground({
   imageUrl: string;
   children: React.ReactNode;
 }) {
-  const pastelColor = useDominantColor(imageUrl);
+  const pastelColors = useDominantColors(imageUrl);
   const { setBackgroundColor } = usePageBackground() ?? {};
 
   useEffect(() => {
-    setBackgroundColor?.(pastelColor ?? null);
+    if (!pastelColors) {
+      setBackgroundColor?.(null);
+      return () => setBackgroundColor?.(null);
+    }
+    setBackgroundColor?.(pastelColors[0]);
     return () => setBackgroundColor?.(null);
-  }, [pastelColor, setBackgroundColor]);
+  }, [pastelColors, setBackgroundColor]);
+
+  const bgStyle = pastelColors
+    ? { backgroundColor: pastelColors[0] }
+    : { backgroundColor: "#ffffff" };
 
   return (
     <div
-      className="min-h-[50vh] transition-colors duration-500 ease-out"
-      style={{ backgroundColor: pastelColor ?? "#ffffff" }}
+      className="min-h-[50vh] transition-[background,background-color] duration-500 ease-out"
+      style={bgStyle}
     >
       {children}
     </div>

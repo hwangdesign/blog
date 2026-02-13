@@ -69,3 +69,17 @@ export function rgbToPastel(r: number, g: number, b: number): string {
   const [pr, pg, pb] = hslToRgb(h, 40, 80);
   return `rgb(${pr}, ${pg}, ${pb})`;
 }
+
+/**
+ * 주조색(RGB)을 지정 채도로 변환 (밝기 80% 고정)
+ */
+export function rgbToPastelWithSaturation(
+  r: number,
+  g: number,
+  b: number,
+  saturation: number
+): string {
+  const [h] = rgbToHsl(r, g, b);
+  const [pr, pg, pb] = hslToRgb(h, saturation, 80);
+  return `rgb(${pr}, ${pg}, ${pb})`;
+}

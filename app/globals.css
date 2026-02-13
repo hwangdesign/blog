@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24..48,100..700,0..1,-50..200");
+@import "tailwindcss";
 
 /* Material Symbols - font-family 필수 (본문 폰트 상속 방지) */
 .material-symbols-outlined,
@@ -78,6 +78,15 @@
   --border: rgb(0 0 0 / 0.2);
   --accent: #76FF03;
   --accent-hover: #76FF03;
+}
+
+/* 페이지 배경 - 단색/그라데이션 모두 지원 (background 프로퍼티) */
+.bg-page {
+  background: var(--background);
+}
+/* 대각선 오버레이 등 - 페이지와 동일한 배경(그라데이션) */
+.bg-page-same {
+  background: var(--background);
 }
 
 html {

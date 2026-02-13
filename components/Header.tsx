@@ -8,7 +8,6 @@ import { CATEGORIES } from "@/lib/data";
 import { TOPIC_FILL_HOVER_LIGHT } from "@/lib/classes";
 import { Icon } from "@/components/Icon";
 import { CONTAINER } from "@/lib/classes";
-import { usePageBackground } from "@/contexts/PageBackgroundContext";
 
 const TOPIC_LINKS = [
   "3D design",
@@ -88,7 +87,6 @@ export function Header() {
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
   const lastScrollY = useRef(0);
-  const pageBg = usePageBackground();
 
   useEffect(() => {
     setMounted(true);
@@ -123,20 +121,11 @@ export function Header() {
 
   const closeMenu = () => setMenuOpen(false);
 
-  const pageBgColor = pageBg?.backgroundColor;
-  const hasPageBg =
-    typeof pageBgColor === "string" && pageBgColor.length > 0;
-  const headerBgClass = hasPageBg ? "" : "bg-[var(--background)]";
-  const headerBgStyle = hasPageBg
-    ? { backgroundColor: pageBgColor }
-    : undefined;
-
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-black/20 transition-transform duration-300 ease-out ${headerBgClass} ${
+      className={`sticky top-0 z-50 border-b border-black/20 bg-page transition-transform duration-300 ease-out ${
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
-      style={headerBgStyle}
     >
       <div className={CONTAINER}>
         <div className="flex h-20 sm:h-24 items-center justify-between">

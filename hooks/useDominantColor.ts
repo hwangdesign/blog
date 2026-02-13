@@ -1,16 +1,25 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { rgbToPastel } from "@/lib/colorUtils";
+import { rgbToPastel, rgbToPastelWithSaturation } from "@/lib/colorUtils";
 
 const SAMPLE_SIZE = 50;
 const BUCKET_SIZE = 32;
 
+/** 버킷 키 → RGB 튜플 변환 */
+function keyToRgb(key: string): [number, number, number] {
+  const [br, bg, bb] = key.split("-").map(Number);
+  const r = (br * BUCKET_SIZE + BUCKET_SIZE / 2) | 0;
+  const g = (bg * BUCKET_SIZE + BUCKET_SIZE / 2) | 0;
+  const b = (bb * BUCKET_SIZE + BUCKET_SIZE / 2) | 0;
+  return [r, g, b];
+}
+
 /**
- * 이미지 URL에서 주조색을 추출하고 파스텔 배경색으로 변환
+ * 이미지 URL에서 주조색 2개를 추출하고 파스텔 배경색으로 변환
  */
-export function useDominantColor(imageUrl: string | null): string | null {
-  const [pastelColor, setPastelColor] = useState<string | null>(null);
+export function useDominantColors(imageUrl: string | null): [string, string] | null {
+  const [pastelColors, setPastelColors] = useState<[string, string] | null>(null);
 
   useEffect(() => {
     if (!imageUrl) return;
@@ -22,7 +31,10 @@ export function useDominantColor(imageUrl: string | null): string | null {
       try {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+        if (!ctx) {
+          setPastelColors(["rgb(245 245 245)", "rgb(235 235 235)"]);
+          return;
+        }
 
         const scale = Math.min(SAMPLE_SIZE / img.width, SAMPLE_SIZE / img.height);
         canvas.width = Math.max(1, img.width * scale);
@@ -43,32 +55,32 @@ export function useDominantColor(imageUrl: string | null): string | null {
           buckets.set(key, (buckets.get(key) ?? 0) + 1);
         }
 
-        if (buckets.size === 0) return;
-
-        let maxCount = 0;
-        let dominantKey = "";
-        for (const [key, count] of buckets) {
-          if (count > maxCount) {
-            maxCount = count;
-            dominantKey = key;
-          }
+        // 버킷 없을 시 기본 중성 그라데이션 (무조건 2색 반환)
+        if (buckets.size === 0) {
+          setPastelColors(["rgb(245 245 245)", "rgb(235 235 235)"]);
+          return;
         }
 
-        const [br, bg, bb] = dominantKey.split("-").map(Number);
-        const r = (br * BUCKET_SIZE + BUCKET_SIZE / 2) | 0;
-        const g = (bg * BUCKET_SIZE + BUCKET_SIZE / 2) | 0;
-        const b = (bb * BUCKET_SIZE + BUCKET_SIZE / 2) | 0;
+        // 상위 2개 버킷 추출 (빈도순) - 항상 2개
+        const sorted = [...buckets.entries()].sort((a, b) => b[1] - a[1]);
+        const [key1, key2] = [sorted[0]![0], sorted[1]?.[0] ?? sorted[0]![0]];
 
-        const color = rgbToPastel(r, g, b);
-        setPastelColor(color);
+        const [r1, g1, b1] = keyToRgb(key1);
+        const [r2, g2, b2] = keyToRgb(key2);
+
+        const color1 = rgbToPastel(r1, g1, b1);
+        const color2 = rgbToPastelWithSaturation(r2, g2, b2, 80);
+        setPastelColors([color1, color2]);
       } catch {
-        // CORS 등으로 실패 시 무시
+        setPastelColors(["rgb(245 245 245)", "rgb(235 235 235)"]);
       }
     };
 
-    img.onerror = () => {};
+    img.onerror = () => {
+      setPastelColors(["rgb(245 245 245)", "rgb(235 235 235)"]);
+    };
     img.src = imageUrl;
   }, [imageUrl]);
 
-  return pastelColor;
+  return pastelColors;
 }

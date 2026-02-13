@@ -25,7 +25,7 @@ export function PageBackgroundProvider({ children }: { children: ReactNode }) {
     setBackgroundColor(color);
   }, []);
 
-  // 푸터·메인 등에서 var(--background)로 페이지 배경 연동
+  // 푸터·메인·GNB 등에서 var(--background)로 페이지 배경 연동
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--background",

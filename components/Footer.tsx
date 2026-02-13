@@ -56,7 +56,7 @@ const SNS_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/20 bg-[var(--background)]">
+    <footer className="border-t border-black/20 bg-page">
       <div className={`${CONTAINER} flex flex-col items-center gap-6 py-12 sm:py-16`}>
         <nav className="flex items-center gap-6" aria-label="SNS">
           {SNS_LINKS.map(({ href, label, icon }) => (
