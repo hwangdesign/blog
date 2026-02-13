@@ -1,0 +1,4 @@
+# 아이콘 사용
+- 블로그 내 모든 아이콘은 [Google Material Symbols](https://fonts.google.com/icons) 사용
+- `@/components/Icon` 컴포넌트 사용: `<Icon name="menu" size={24} />`
+- 아이콘 목록: https://fonts.google.com/icons 에서 검색
