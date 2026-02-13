@@ -6,7 +6,7 @@ import { getPostBySlug, getLatestPosts, getPrevNextPosts } from "@/lib/data";
 import { formatDate } from "@/lib/dateUtils";
 import { PostLatestSection } from "@/components/PostLatestSection";
 import { PostPageWithBackground } from "@/components/PostPageWithBackground";
-import { CONTAINER_SECTION, SECTION_TITLE } from "@/lib/classes";
+import { CONTAINER, CONTAINER_SECTION } from "@/lib/classes";
 
 export default function PostPage({
   params,
@@ -61,8 +61,9 @@ export default function PostPage({
       </div>
 
       {/* ------------ 이전글 | 다음글 (모바일 미노출, 구분선 풀 너비) ------------ */}
-      <div className="mt-16 hidden border-t border-black/20 pt-12 sm:mt-24 sm:block sm:pt-16 -mx-6 px-6 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 2xl:-mx-12 2xl:px-12 3xl:-mx-14 3xl:px-14 4xl:-mx-16 4xl:px-16">
-        <nav className="grid grid-cols-1 items-center gap-8 sm:grid-cols-2 sm:gap-12">
+      <div className="mt-16 hidden sm:mt-24 sm:block w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 sm:pt-16">
+        <div className={CONTAINER}>
+          <nav className="grid grid-cols-1 items-center gap-8 sm:grid-cols-2 sm:gap-12">
           {/* 이전글: ← 고정, 제목은 별도 영역 */}
           <div className="min-w-0">
             {prev ? (
@@ -109,13 +110,13 @@ export default function PostPage({
             )}
           </div>
         </nav>
+        </div>
       </div>
 
       {/* ------------ 최근글 카드: 2줄까지 노출 + 더보기 ------------ */}
       {latest.length > 0 && (
-        <section className="mt-16 border-t border-black/20 pt-12 sm:mt-24 sm:pt-16 -mx-6 px-6 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 2xl:-mx-12 2xl:px-12 3xl:-mx-14 3xl:px-14 4xl:-mx-16 4xl:px-16">
-          <h2 className={SECTION_TITLE}>최신글</h2>
-          <div className="mt-8 sm:mt-12">
+        <section className="mt-16 sm:mt-24 w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 sm:pt-16">
+          <div className={CONTAINER}>
             <PostLatestSection posts={latest} />
           </div>
         </section>

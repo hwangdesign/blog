@@ -1,7 +1,7 @@
 import { use } from "react";
 import { POSTS, sortByLatest } from "@/lib/data";
-import { ArticleCard } from "@/components/ArticleCard";
-import { CONTAINER_SECTION, CARD_MASONRY } from "@/lib/classes";
+import { CardRevealGrid } from "@/components/CardRevealGrid";
+import { CONTAINER_SECTION } from "@/lib/classes";
 
 export default function TopicPage({
   params,
@@ -28,11 +28,7 @@ export default function TopicPage({
       {posts.length === 0 ? (
         <p className="mt-8 text-black sm:mt-12">No posts in this topic yet.</p>
       ) : (
-        <div className={`mt-12 sm:mt-16 ${CARD_MASONRY}`}>
-          {posts.map((post) => (
-            <ArticleCard key={post.id} post={post} />
-          ))}
-        </div>
+        <CardRevealGrid posts={posts} className="mt-12 sm:mt-16" />
       )}
     </div>
   );

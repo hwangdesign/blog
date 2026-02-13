@@ -92,6 +92,13 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* 링크, 버튼 등 클릭 가능 요소에 손커서 */
+a[href],
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
 
 /* Horizontal scroll section */
 .overflow-x-auto {
@@ -136,5 +143,18 @@ body {
   color: #fff;
 }
 
+/* 카드 스크롤 등장 애니메이션 (위로 살짝 올라오며 순차 등장) */
+.card-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+  transition-delay: calc(var(--stagger, 0) * 40ms);
+}
+.card-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 

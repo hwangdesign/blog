@@ -4,9 +4,11 @@ import type { Post } from "@/lib/data";
 type ArticleCardProps = {
   post: Post;
   size?: "default" | "large";
+  /** 순서 확인용 넘버링 (0부터 시작, 지정 시 이미지 좌측 상단에 표시) */
+  index?: number;
 };
 
-export function ArticleCard({ post, size = "default" }: ArticleCardProps) {
+export function ArticleCard({ post, size = "default", index }: ArticleCardProps) {
   const isLarge = size === "large";
 
   const getTopicSlug = (topic: string) =>
@@ -16,6 +18,14 @@ export function ArticleCard({ post, size = "default" }: ArticleCardProps) {
     <article>
       <Link href={`/post/${post.slug}`} className="group block min-h-[44px] min-w-[44px]">
         <div className="relative w-full overflow-hidden bg-slate-200">
+          {index !== undefined && (
+            <span
+              className="absolute left-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded bg-black/70 text-sm font-bold text-white"
+              aria-hidden
+            >
+              {index}
+            </span>
+          )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={post.image}
@@ -24,7 +34,7 @@ export function ArticleCard({ post, size = "default" }: ArticleCardProps) {
             className="block w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105"
           />
           <div
-            className="absolute inset-0 bg-black/30 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
+            className="absolute inset-0 backdrop-blur-md bg-white/20 opacity-0 transition-all duration-300 ease-out group-hover:opacity-100"
             aria-hidden
           />
         </div>

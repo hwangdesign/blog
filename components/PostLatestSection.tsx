@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ArticleCard } from "@/components/ArticleCard";
-import { CARD_MASONRY } from "@/lib/classes";
+import { useEffect, useRef, useState } from "react";
+import { LazyCard } from "@/components/LazyCard";
+import { CARD_GRID } from "@/lib/classes";
 import type { Post } from "@/lib/data";
 
 const INITIAL_COUNT = 6;
@@ -14,50 +14,52 @@ type PostLatestSectionProps = {
 
 export function PostLatestSection({ posts }: PostLatestSectionProps) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
-  const sentinelRef = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
   const visible = posts.slice(0, visibleCount);
   const hasMore = visibleCount < posts.length;
 
-  const loadMore = useCallback(() => {
+  const loadMore = () => {
     setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, posts.length));
-  }, [posts.length]);
+  };
 
   useEffect(() => {
-    if (!hasMore) return;
-    const el = sentinelRef.current;
+    const el = gridRef.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) loadMore();
+      ([entry]) => {
+        if (entry?.isIntersecting) setRevealed(true);
       },
-      { rootMargin: "200px" }
+      { threshold: 0.05 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [hasMore, loadMore]);
+  }, []);
 
   return (
     <>
-      <div className={CARD_MASONRY}>
-        {visible.map((p) => (
-          <ArticleCard key={p.id} post={p} />
+      <div ref={gridRef} className={CARD_GRID}>
+        {visible.map((p, i) => (
+          <div
+            key={p.id}
+            className={`card-reveal ${revealed ? "in-view" : ""}`}
+            style={{ "--stagger": i } as React.CSSProperties}
+          >
+            <LazyCard post={p} index={i} />
+          </div>
         ))}
       </div>
       {hasMore && (
-        <>
-          <div ref={sentinelRef} className="h-1" aria-hidden />
-          <div className="mt-12 text-center sm:mt-16">
+        <div className="mt-12 text-center sm:mt-16">
           <button
             type="button"
             onClick={loadMore}
-            className="inline-flex items-center justify-center gap-2 border-2 border-black bg-white px-8 py-3 text-sm font-semibold text-black transition-colors hover:bg-black hover:text-white rounded-none"
+            className="inline-flex items-center justify-center gap-2 border-2 border-black bg-transparent px-8 py-3 text-sm font-semibold text-black transition-colors hover:bg-black hover:text-white rounded-none cursor-pointer"
           >
             더보기
             <span aria-hidden>↓</span>
           </button>
-          </div>
-        </>
+        </div>
       )}
     </>
   );
