@@ -9,7 +9,7 @@ type LazyCardProps = {
   index?: number;
 };
 
-export function LazyCard({ post, index }: LazyCardProps) {
+export function LazyCard({ post }: LazyCardProps) {
   const [loaded, setLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -41,7 +41,7 @@ export function LazyCard({ post, index }: LazyCardProps) {
 
   return (
     <div ref={ref}>
-      <ArticleCard post={post} index={index} />
+      <ArticleCard post={post} />
     </div>
   );
 }

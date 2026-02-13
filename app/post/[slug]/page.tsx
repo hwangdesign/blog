@@ -1,12 +1,13 @@
 import { use } from "react";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import { ImageMaskReveal } from "@/components/ImageMaskReveal";
 import Link from "next/link";
 import { getPostBySlug, getLatestPosts, getPrevNextPosts } from "@/lib/data";
 import { formatDate } from "@/lib/dateUtils";
+import { FillHoverLink } from "@/components/FillHoverLink";
 import { PostLatestSection } from "@/components/PostLatestSection";
 import { PostPageWithBackground } from "@/components/PostPageWithBackground";
-import { CONTAINER, CONTAINER_SECTION } from "@/lib/classes";
+import { CONTAINER, CONTAINER_SECTION, TOPIC_FILL_HOVER } from "@/lib/classes";
 
 export default function PostPage({
   params,
@@ -32,18 +33,18 @@ export default function PostPage({
         </h1>
         <div className="mt-6 flex flex-wrap gap-2">
           {post.topics.map((topic) => (
-            <Link
+            <FillHoverLink
               key={topic}
               href={`/topic/${topic.toLowerCase().replace(/\s+/g, "-")}`}
-              className="topic-box topic-box--dark"
+              className={TOPIC_FILL_HOVER}
             >
               {topic}
-            </Link>
+            </FillHoverLink>
           ))}
         </div>
       </header>
-      <div className="relative mt-8 aspect-video overflow-hidden bg-slate-200 sm:mt-12">
-        <Image
+      <div className="relative mt-8 aspect-video overflow-hidden bg-transparent sm:mt-12">
+        <ImageMaskReveal
           src={post.image}
           alt=""
           fill

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { FillHoverButton } from "@/components/FillHoverButton";
 import { LazyCard } from "@/components/LazyCard";
 import { PopularTopicCard } from "@/components/PopularTopicCard";
 import { CARD_GRID } from "@/lib/classes";
@@ -83,15 +84,14 @@ export function LatestSection({ posts }: LatestSectionProps) {
         ))}
       </div>
       {hasMore && (
-        <div className="mt-12 text-center sm:mt-16">
-          <button
-            type="button"
+        <div className="mt-12 text-center sm:mt-16 isolate">
+          <FillHoverButton
             onClick={loadMore}
-            className="inline-flex items-center justify-center gap-2 border-2 border-black bg-transparent px-8 py-3 text-sm font-semibold text-black transition-colors hover:bg-black hover:text-white rounded-none cursor-pointer"
+            className="btn-fill-hover inline-flex items-center justify-center gap-2 border-2 border-black bg-transparent px-8 py-3 text-sm font-semibold text-black rounded-none cursor-pointer"
           >
-            더보기
-            <span aria-hidden>↓</span>
-          </button>
+            <span className="relative z-[1]">더보기</span>
+            <span className="relative z-[1]" aria-hidden>↓</span>
+          </FillHoverButton>
         </div>
       )}
     </>

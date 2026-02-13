@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { FillHoverLink } from "@/components/FillHoverLink";
 import { CATEGORIES } from "@/lib/data";
+import { TOPIC_FILL_HOVER_LIGHT } from "@/lib/classes";
 import { Icon } from "@/components/Icon";
 import { CONTAINER } from "@/lib/classes";
 import { usePageBackground } from "@/contexts/PageBackgroundContext";
@@ -55,14 +57,14 @@ function MenuContent({ onClose }: { onClose: () => void }) {
         <div className="-mx-6 pt-8 pb-6 border-t border-white/20">
           <div className="flex flex-wrap gap-2 pt-2 px-6">
             {TOPIC_LINKS.map((topic) => (
-              <Link
+              <FillHoverLink
                 key={topic}
                 href={`/topic/${toTopicSlug(topic)}`}
+                className={TOPIC_FILL_HOVER_LIGHT}
                 onClick={onClose}
-                className="topic-box topic-box--light"
               >
                 {topic}
-              </Link>
+              </FillHoverLink>
             ))}
           </div>
         </div>
