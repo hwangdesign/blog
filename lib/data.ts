@@ -309,8 +309,16 @@ export function getLatestPosts(limit = 12): Post[] {
     .slice(0, limit);
 }
 
+/** 날짜 최신순 정렬 (date desc, 동일 시 id desc) */
+export function sortByLatest(posts: Post[]): Post[] {
+  return [...posts].sort((a, b) => {
+    if (b.date !== a.date) return b.date > a.date ? 1 : -1;
+    return parseInt(b.id, 10) - parseInt(a.id, 10);
+  });
+}
+
 export function getPostsByCategory(category: Category): Post[] {
-  return POSTS.filter((p) => p.category === category);
+  return sortByLatest(POSTS.filter((p) => p.category === category));
 }
 
 export function getPostBySlug(slug: string): Post | undefined {

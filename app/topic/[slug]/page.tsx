@@ -1,7 +1,7 @@
 import { use } from "react";
-import { POSTS } from "@/lib/data";
+import { POSTS, sortByLatest } from "@/lib/data";
 import { ArticleCard } from "@/components/ArticleCard";
-import { CONTAINER_SECTION, CARD_GRID } from "@/lib/classes";
+import { CONTAINER_SECTION, CARD_MASONRY } from "@/lib/classes";
 
 export default function TopicPage({
   params,
@@ -16,8 +16,8 @@ export default function TopicPage({
     .join(" ");
   const toTopicSlug = (t: string) =>
     t.toLowerCase().replace(/\s+/g, "-").replace(/&/g, "and");
-  const posts = POSTS.filter((p) =>
-    p.topics.some((t) => toTopicSlug(t) === slug)
+  const posts = sortByLatest(
+    POSTS.filter((p) => p.topics.some((t) => toTopicSlug(t) === slug))
   );
 
   return (
@@ -28,7 +28,7 @@ export default function TopicPage({
       {posts.length === 0 ? (
         <p className="mt-8 text-black sm:mt-12">No posts in this topic yet.</p>
       ) : (
-        <div className={`mt-12 sm:mt-16 ${CARD_GRID}`}>
+        <div className={`mt-12 sm:mt-16 ${CARD_MASONRY}`}>
           {posts.map((post) => (
             <ArticleCard key={post.id} post={post} />
           ))}

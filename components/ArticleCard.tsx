@@ -17,7 +17,16 @@ export function ArticleCard({ post, size = "default" }: ArticleCardProps) {
       <Link href={`/post/${post.slug}`} className="group block min-h-[44px] min-w-[44px]">
         <div className="relative w-full overflow-hidden bg-slate-200">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={post.image} alt="" loading="lazy" className="block w-full h-auto" />
+          <img
+            src={post.image}
+            alt=""
+            loading="lazy"
+            className="block w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105"
+          />
+          <div
+            className="absolute inset-0 bg-black/30 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
+            aria-hidden
+          />
         </div>
         <div className={isLarge ? "mt-6 sm:mt-8" : "mt-4 sm:mt-6"}>
           <h2

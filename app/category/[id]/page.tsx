@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getPostsByCategory, CATEGORIES } from "@/lib/data";
 import { ArticleCard } from "@/components/ArticleCard";
 import type { Category } from "@/lib/data";
-import { CONTAINER, CONTAINER_SECTION, CARD_GRID } from "@/lib/classes";
+import { CONTAINER, CONTAINER_SECTION, CARD_MASONRY } from "@/lib/classes";
 
 export default function CategoryPage({
   params,
@@ -30,7 +30,7 @@ export default function CategoryPage({
       <h1 className="text-2xl font-bold text-black sm:text-3xl md:text-center">
         {category.label}
       </h1>
-      <div className={`mt-12 sm:mt-16 ${CARD_GRID}`}>
+      <div className={`mt-12 sm:mt-16 ${CARD_MASONRY}`}>
         {posts.map((post) => (
           <ArticleCard key={post.id} post={post} />
         ))}
