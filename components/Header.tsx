@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { FillHoverLink } from "@/components/FillHoverLink";
@@ -83,6 +84,7 @@ const SCROLL_THRESHOLD = 10;
 const TOP_THRESHOLD = 20;
 
 export function Header() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
@@ -121,6 +123,14 @@ export function Header() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    closeMenu();
+    if (pathname === "/") {
+      e.preventDefault();
+      window.location.href = "/";
+    }
+  };
+
   return (
     <header
       className={`sticky top-0 z-50 border-b border-black/20 bg-page transition-transform duration-300 ease-out ${
@@ -131,10 +141,15 @@ export function Header() {
         <div className="flex h-20 sm:h-24 items-center justify-between">
           <Link
             href="/"
-            onClick={closeMenu}
-            className="text-xl font-semibold text-black"
+            onClick={handleLogoClick}
+            className="group/logo relative inline-block text-xl font-semibold text-black"
           >
-            texttotext
+            <span className="inline-block transition-opacity duration-300 group-hover/logo:opacity-0">
+              texttotext
+            </span>
+            <span className="absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover/logo:opacity-100">
+              to_home
+            </span>
           </Link>
 
           {/* 햄버거 버튼 - 모바일/PC 공통 (Material Symbols) */}

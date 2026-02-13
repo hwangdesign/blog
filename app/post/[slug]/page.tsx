@@ -61,8 +61,8 @@ export default function PostPage({
         </p>
       </div>
 
-      {/* ------------ 이전글 | 다음글 (모바일 미노출, 구분선 풀 너비) ------------ */}
-      <div className="mt-16 hidden sm:mt-24 sm:block w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 sm:pt-16">
+      {/* ------------ 이전글 | 다음글 (구분선 풀 너비) ------------ */}
+      <div className="mt-16 w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 sm:mt-24 sm:pt-16">
         <div className={CONTAINER}>
           <nav className="grid grid-cols-1 items-center gap-8 sm:grid-cols-2 sm:gap-12">
           {/* 이전글: ← 고정, 제목은 별도 영역 */}

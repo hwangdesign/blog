@@ -26,10 +26,10 @@ export function LatestSection({ posts }: LatestSectionProps) {
     () => getTopicsSortedByPostCount().slice(0, POPULAR_TOPIC_COUNT),
     []
   );
-  // 인기토픽 카드 위치: 진입 시마다 랜덤 (3~11, 0~2번 제외)
+  // 인기토픽 카드 위치: 진입 시마다 랜덤 (3~10, 0~2·마지막 제외)
   const [insertPosition, setInsertPosition] = useState(4);
   useEffect(() => {
-    setInsertPosition(3 + Math.floor(Math.random() * 9));
+    setInsertPosition(3 + Math.floor(Math.random() * 8));
   }, []);
 
   // 표시할 슬롯 수: 12개 중 1개는 인기토픽, 나머지는 글 카드
@@ -72,11 +72,24 @@ export function LatestSection({ posts }: LatestSectionProps) {
         {items.map((item, i) => (
           <div
             key={item.type === "popular" ? "popular-topic" : item.post.id}
-            className={`card-reveal ${revealed ? "in-view" : ""}`}
+            className={`card-reveal ${revealed ? "in-view" : ""} ${
+              item.type === "popular" ? "relative py-6 sm:py-0" : ""
+            }`}
             style={{ "--stagger": i } as React.CSSProperties}
           >
             {item.type === "popular" ? (
-              <PopularTopicCard topics={popularTopics} />
+              <>
+                {/* 모바일: 스크린 풀 너비 가로 구분선 */}
+                <div
+                  className="absolute left-1/2 top-0 w-screen -translate-x-1/2 border-t border-black/20 sm:hidden"
+                  aria-hidden
+                />
+                <PopularTopicCard topics={popularTopics} />
+                <div
+                  className="absolute left-1/2 bottom-0 w-screen -translate-x-1/2 border-b border-black/20 sm:hidden"
+                  aria-hidden
+                />
+              </>
             ) : (
               <LazyCard post={item.post} index={item.postIndex} />
             )}
