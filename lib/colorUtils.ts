@@ -62,16 +62,16 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
 
 /**
  * 주조색(RGB)을 파스텔 톤의 연한 배경색으로 변환
- * - 밝기(L) 80%, 채도(S) 40%로 설정
+ * - 밝기(L) 90%, 채도(S) 40%로 설정
  */
 export function rgbToPastel(r: number, g: number, b: number): string {
   const [h] = rgbToHsl(r, g, b);
-  const [pr, pg, pb] = hslToRgb(h, 40, 80);
+  const [pr, pg, pb] = hslToRgb(h, 40, 90);
   return `rgb(${pr}, ${pg}, ${pb})`;
 }
 
 /**
- * 주조색(RGB)을 지정 채도로 변환 (밝기 80% 고정)
+ * 주조색(RGB)을 지정 채도로 변환 (밝기 90% 고정)
  */
 export function rgbToPastelWithSaturation(
   r: number,
@@ -80,6 +80,6 @@ export function rgbToPastelWithSaturation(
   saturation: number
 ): string {
   const [h] = rgbToHsl(r, g, b);
-  const [pr, pg, pb] = hslToRgb(h, saturation, 80);
+  const [pr, pg, pb] = hslToRgb(h, saturation, 90);
   return `rgb(${pr}, ${pg}, ${pb})`;
 }

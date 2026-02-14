@@ -142,7 +142,7 @@ export function Header() {
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="group/logo relative inline-block text-xl font-semibold text-black"
+            className="group/logo relative inline-block text-base font-semibold text-black"
           >
             <span className="inline-block transition-opacity duration-300 group-hover/logo:opacity-0 group-active/logo:opacity-0">
               texttotext
