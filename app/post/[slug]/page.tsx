@@ -53,12 +53,20 @@ export default function PostPage({
         />
       </div>
       <div className="prose prose-slate mt-12 max-w-none sm:mt-16">
-        <p className="text-sm text-black sm:text-base">
-          {post.excerpt}
-        </p>
-        <p className="mt-6 text-sm text-black sm:mt-8 sm:text-base">
-          (Here you would render full post content — e.g. from MDX or CMS.)
-        </p>
+        {post.content ? (
+          <div className="text-sm text-black whitespace-pre-line sm:text-base">
+            {post.content}
+          </div>
+        ) : (
+          <>
+            <p className="text-sm text-black sm:text-base">
+              {post.excerpt}
+            </p>
+            <p className="mt-6 text-sm text-black sm:mt-8 sm:text-base">
+              (Here you would render full post content — e.g. from MDX or CMS.)
+            </p>
+          </>
+        )}
       </div>
 
       {/* ------------ 이전글 | 다음글 (구분선 풀 너비) ------------ */}

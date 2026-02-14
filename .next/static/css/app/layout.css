@@ -668,6 +668,9 @@
     --tw-tracking: -2px;
     letter-spacing: -2px;
   }
+  .whitespace-pre-line {
+    white-space: pre-line;
+  }
   .text-black {
     color: var(--color-black);
   }
