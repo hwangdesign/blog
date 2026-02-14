@@ -23,6 +23,12 @@ export const CATEGORIES: { id: Category; label: string }[] = [
   { id: "insights", label: "Insights" },
 ];
 
+const CATEGORY_VALUES: Category[] = ["maker-stories", "working-well", "inside", "insights"];
+
+function toCategory(value: unknown): Category {
+  return CATEGORY_VALUES.includes(value as Category) ? (value as Category) : "insights";
+}
+
 export const TOPICS = [
   "News",
   "Design systems",
@@ -57,7 +63,13 @@ export const TOPICS = [
 ] as const;
 
 // rss-filter-bot에서 동기화된 포스트 (content/dynamic-posts.json)
-const dynamicPosts: Post[] = Array.isArray(dynamicPostsData) ? dynamicPostsData : [];
+// JSON의 category는 string으로 추론되므로 Post 타입으로 변환
+const dynamicPosts: Post[] = Array.isArray(dynamicPostsData)
+  ? (dynamicPostsData as Record<string, unknown>[]).map((p) => ({
+      ...p,
+      category: toCategory(p.category),
+    })) as Post[]
+  : [];
 
 // 파스텔 추출 확인용: 주조색이 뚜렷한 이미지들 (빨·주·노·초·청·보·분홍 등)
 const STATIC_POSTS: Post[] = [
