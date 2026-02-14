@@ -598,6 +598,12 @@
   .pb-6 {
     padding-bottom: calc(var(--spacing) * 6);
   }
+  .pb-16 {
+    padding-bottom: calc(var(--spacing) * 16);
+  }
+  .pb-28 {
+    padding-bottom: calc(var(--spacing) * 28);
+  }
   .pl-0 {
     padding-left: calc(var(--spacing) * 0);
   }
@@ -1029,6 +1035,16 @@
   .sm\:pt-16 {
     @media (width >= 40rem) {
       padding-top: calc(var(--spacing) * 16);
+    }
+  }
+  .sm\:pb-24 {
+    @media (width >= 40rem) {
+      padding-bottom: calc(var(--spacing) * 24);
+    }
+  }
+  .sm\:pb-40 {
+    @media (width >= 40rem) {
+      padding-bottom: calc(var(--spacing) * 40);
     }
   }
   .sm\:text-right {

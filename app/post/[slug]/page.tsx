@@ -62,7 +62,7 @@ export default function PostPage({
       </div>
 
       {/* ------------ 이전글 | 다음글 (구분선 풀 너비) ------------ */}
-      <div className="mt-16 w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 sm:mt-24 sm:pt-16">
+      <div className="mt-16 w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 pb-16 sm:mt-24 sm:pt-16 sm:pb-24">
         <div className={CONTAINER}>
           <nav className="grid grid-cols-1 items-center gap-8 sm:grid-cols-2 sm:gap-12">
           {/* 이전글: ← 고정, 제목은 별도 영역 */}
@@ -116,7 +116,7 @@ export default function PostPage({
 
       {/* ------------ 최근글 카드: 2줄까지 노출 + 더보기 ------------ */}
       {latest.length > 0 && (
-        <section className="mt-16 sm:mt-24 w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 sm:pt-16">
+        <section className="w-screen relative left-1/2 -translate-x-1/2 border-t border-black/20 pt-12 sm:pt-16">
           <div className={CONTAINER}>
             <PostLatestSection posts={latest} />
           </div>
