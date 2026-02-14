@@ -30,45 +30,65 @@ function toCategory(value: unknown): Category {
 }
 
 export const TOPICS = [
-  "News",
-  "Design systems",
+  "NEWS",
+  "INSIGHTS",
+  "INSIDE",
+  "MAKER STORIES",
+  "WORKING WELL",
+  "DESIGN SYSTEMS",
   "AI",
-  "Design",
-  "Research",
-  "Report",
-  "Figma Design",
-  "Product updates",
-  "Hiring",
-  "Culture",
+  "DESIGN",
+  "RESEARCH",
+  "REPORT",
+  "FIGMA DESIGN",
+  "PRODUCT UPDATES",
+  "HIRING",
+  "CULTURE",
   "UI/UX",
-  "Prototyping",
-  "Branding",
-  "Typography",
-  "Color theory",
-  "Accessibility",
-  "User research",
-  "Motion design",
-  "Design thinking",
-  "Collaboration",
-  "Dev Mode",
-  "Information architecture",
-  "Visual design",
-  "Interaction design",
-  "Service design",
-  "Sustainable design",
-  "Inclusive design",
-  "Design ops",
-  "Design leadership",
-  "Craft",
+  "PROTOTYPING",
+  "BRANDING",
+  "TYPOGRAPHY",
+  "COLOR THEORY",
+  "ACCESSIBILITY",
+  "USER RESEARCH",
+  "MOTION DESIGN",
+  "DESIGN THINKING",
+  "COLLABORATION",
+  "DEV MODE",
+  "INFORMATION ARCHITECTURE",
+  "VISUAL DESIGN",
+  "INTERACTION DESIGN",
+  "SERVICE DESIGN",
+  "SUSTAINABLE DESIGN",
+  "INCLUSIVE DESIGN",
+  "DESIGN OPS",
+  "DESIGN LEADERSHIP",
+  "CRAFT",
 ] as const;
 
 // rss-filter-bot에서 동기화된 포스트 (content/dynamic-posts.json)
-// JSON의 category는 string으로 추론되므로 Post 타입으로 변환
+// category, topics 변환 (topics: 영문 대문자, 최소 3개)
 const dynamicPosts: Post[] = Array.isArray(dynamicPostsData)
-  ? (dynamicPostsData as Record<string, unknown>[]).map((p) => ({
-      ...p,
-      category: toCategory(p.category),
-    })) as Post[]
+  ? (dynamicPostsData as Record<string, unknown>[]).map((p) => {
+      const rawTopics = (p.topics as string[] | undefined) || [];
+      const seen = new Set<string>();
+      const topics: string[] = [];
+      for (const t of rawTopics) {
+        const u = String(t).toUpperCase();
+        if (u && !seen.has(u)) {
+          topics.push(u);
+          seen.add(u);
+        }
+      }
+      for (const fallback of ["DESIGN", "NEWS", "UI/UX"]) {
+        if (topics.length >= 3) break;
+        if (!seen.has(fallback)) {
+          topics.push(fallback);
+          seen.add(fallback);
+        }
+      }
+      return { ...p, category: toCategory(p.category), topics };
+    }) as Post[]
   : [];
 
 // 파스텔 추출 확인용: 주조색이 뚜렷한 이미지들 (빨·주·노·초·청·보·분홍 등)
@@ -83,7 +103,7 @@ const STATIC_POSTS: Post[] = [
     author: "매들린 스태퍼드",
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // 파랑(하늘/산)
     category: "insights",
-    topics: ["Insights", "Research", "Report", "Design", "AI"],
+    topics: ["INSIGHTS", "RESEARCH", "REPORT", "DESIGN", "AI"],
     featured: true,
   },
   {
@@ -96,7 +116,7 @@ const STATIC_POSTS: Post[] = [
     author: "앤드루 호건",
     image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80", // 주황(일몰)
     category: "insights",
-    topics: ["Insights", "Hiring", "Report", "Research"],
+    topics: ["INSIGHTS", "HIRING", "REPORT", "RESEARCH"],
     featured: true,
   },
   {
@@ -109,7 +129,7 @@ const STATIC_POSTS: Post[] = [
     author: "로지 킹",
     image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80", // 초록(숲)
     category: "inside",
-    topics: ["Inside", "Product updates", "Design", "News", "AI"],
+    topics: ["INSIDE", "PRODUCT UPDATES", "DESIGN", "NEWS", "AI"],
   },
   {
     id: "4",
@@ -121,7 +141,7 @@ const STATIC_POSTS: Post[] = [
     author: "피그마",
     image: "https://images.unsplash.com/photo-1518893063132-36e46dbe2428?w=800&q=80", // 보라(꽃)
     category: "insights",
-    topics: ["Insights", "Design", "UI/UX", "Culture"],
+    topics: ["INSIGHTS", "DESIGN", "UI/UX", "CULTURE"],
   },
   {
     id: "5",
@@ -133,7 +153,7 @@ const STATIC_POSTS: Post[] = [
     author: "아쉬레이 샤르마",
     image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=800&q=80", // 빨강(열매)
     category: "insights",
-    topics: ["Insights", "Design", "UI/UX", "Culture"],
+    topics: ["INSIGHTS", "DESIGN", "UI/UX", "CULTURE"],
   },
   {
     id: "6",
@@ -145,7 +165,7 @@ const STATIC_POSTS: Post[] = [
     author: "덩컨 닐슨",
     image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80", // 분홍(꽃)
     category: "maker-stories",
-    topics: ["Maker Stories", "Culture", "Design"],
+    topics: ["MAKER STORIES", "CULTURE", "DESIGN"],
   },
   {
     id: "7",
@@ -157,7 +177,7 @@ const STATIC_POSTS: Post[] = [
     author: "그렉 헌툰",
     image: "https://images.unsplash.com/photo-1557683316-973673baf926?w=800&q=80", // 청록(그라데이션)
     category: "working-well",
-    topics: ["Working Well", "AI", "Prototyping"],
+    topics: ["WORKING WELL", "AI", "PROTOTYPING"],
   },
   {
     id: "8",
@@ -171,7 +191,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80", // 노랑(해바라기)
     category: "insights",
-    topics: ["Design", "UI/UX", "Research"],
+    topics: ["DESIGN", "UI/UX", "RESEARCH"],
   },
   {
     id: "9",
@@ -183,7 +203,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1557683311-eac922347aa1?w=800&q=80", // 코랄/연어색
     category: "insights",
-    topics: ["Design", "Research", "UI/UX"],
+    topics: ["DESIGN", "RESEARCH", "UI/UX"],
   },
   {
     id: "10",
@@ -195,7 +215,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80", // 네이비/남색
     category: "inside",
-    topics: ["News", "Design", "UI/UX"],
+    topics: ["NEWS", "DESIGN", "UI/UX"],
   },
   {
     id: "11",
@@ -207,7 +227,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=800&q=80", // 갈색/암브라
     category: "maker-stories",
-    topics: ["Design", "News", "Culture"],
+    topics: ["DESIGN", "NEWS", "CULTURE"],
   },
   {
     id: "12",
@@ -219,7 +239,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80",
     category: "maker-stories",
-    topics: ["Design", "News", "Culture"],
+    topics: ["DESIGN", "NEWS", "CULTURE"],
   },
   {
     id: "13",
@@ -231,7 +251,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80",
     category: "inside",
-    topics: ["News", "Design", "Product updates"],
+    topics: ["NEWS", "DESIGN", "PRODUCT UPDATES"],
   },
   {
     id: "14",
@@ -243,7 +263,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
     category: "insights",
-    topics: ["News", "Design", "Culture"],
+    topics: ["NEWS", "DESIGN", "CULTURE"],
   },
   {
     id: "15",
@@ -257,7 +277,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
     category: "maker-stories",
-    topics: ["News", "Design", "Culture"],
+    topics: ["NEWS", "DESIGN", "CULTURE"],
   },
   {
     id: "16",
@@ -269,7 +289,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&q=80",
     category: "inside",
-    topics: ["News", "Design", "UI/UX"],
+    topics: ["NEWS", "DESIGN", "UI/UX"],
   },
   {
     id: "17",
@@ -281,7 +301,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80",
     category: "insights",
-    topics: ["News", "Design", "Design systems"],
+    topics: ["NEWS", "DESIGN", "DESIGN SYSTEMS"],
   },
   {
     id: "18",
@@ -293,7 +313,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=800&q=80",
     category: "inside",
-    topics: ["News", "Design", "UI/UX"],
+    topics: ["NEWS", "DESIGN", "UI/UX"],
   },
   {
     id: "19",
@@ -305,7 +325,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     category: "working-well",
-    topics: ["News", "AI", "Design"],
+    topics: ["NEWS", "AI", "DESIGN"],
   },
   {
     id: "20",
@@ -317,7 +337,7 @@ const STATIC_POSTS: Post[] = [
     author: "디자인 나침반",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
     category: "insights",
-    topics: ["News", "Design", "Culture"],
+    topics: ["NEWS", "DESIGN", "CULTURE"],
   },
 ];
 

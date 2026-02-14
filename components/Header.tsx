@@ -11,18 +11,18 @@ import { Icon } from "@/components/Icon";
 import { CONTAINER } from "@/lib/classes";
 
 const TOPIC_LINKS = [
-  "3D design",
-  "Accessibility",
+  "3D DESIGN",
+  "ACCESSIBILITY",
   "AI",
-  "Design systems",
-  "Collaboration",
-  "Design",
-  "Dev Mode",
-  "Figma Design",
-  "Hiring",
-  "Research",
+  "DESIGN SYSTEMS",
+  "COLLABORATION",
+  "DESIGN",
+  "DEV MODE",
+  "FIGMA DESIGN",
+  "HIRING",
+  "RESEARCH",
   "UI/UX",
-  "Prototyping",
+  "PROTOTYPING",
 ];
 
 function toTopicSlug(t: string) {

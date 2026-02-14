@@ -9,11 +9,7 @@ export default function TopicPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const topicLabel = slug
-    .replace(/-/g, " ")
-    .split(" ")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-    .join(" ");
+  const topicLabel = slug.replace(/-/g, " ").toUpperCase();
   const toTopicSlug = (t: string) =>
     t.toLowerCase().replace(/\s+/g, "-").replace(/&/g, "and");
   const posts = sortByLatest(
