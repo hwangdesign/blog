@@ -54,9 +54,16 @@ export default function PostPage({
       </div>
       <div className="prose prose-slate mt-12 max-w-none sm:mt-16">
         {post.content ? (
-          <div className="text-sm text-black whitespace-pre-line sm:text-base">
-            {post.content}
-          </div>
+          post.content.includes("<") ? (
+            <div
+              className="text-sm text-black sm:text-base prose-img:max-w-full prose-figure:my-4"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          ) : (
+            <div className="text-sm text-black whitespace-pre-line sm:text-base">
+              {post.content}
+            </div>
+          )
         ) : (
           <>
             <p className="text-sm text-black sm:text-base">
