@@ -1,7 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/category/[id]/page": "app/category/[id]/page.js",
   "/post/[slug]/page": "app/post/[slug]/page.js",
-  "/topic/[slug]/page": "app/topic/[slug]/page.js",
   "/page": "app/page.js"
 }

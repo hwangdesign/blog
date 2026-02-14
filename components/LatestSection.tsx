@@ -72,24 +72,11 @@ export function LatestSection({ posts }: LatestSectionProps) {
         {items.map((item, i) => (
           <div
             key={item.type === "popular" ? "popular-topic" : item.post.id}
-            className={`card-reveal ${revealed ? "in-view" : ""} ${
-              item.type === "popular" ? "relative py-6 sm:py-0" : ""
-            }`}
+            className={`card-reveal ${revealed ? "in-view" : ""}`}
             style={{ "--stagger": i } as React.CSSProperties}
           >
             {item.type === "popular" ? (
-              <>
-                {/* 모바일: 스크린 풀 너비 가로 구분선 */}
-                <div
-                  className="absolute left-1/2 top-0 w-screen -translate-x-1/2 border-t border-black/20 sm:hidden"
-                  aria-hidden
-                />
-                <PopularTopicCard topics={popularTopics} />
-                <div
-                  className="absolute left-1/2 bottom-0 w-screen -translate-x-1/2 border-b border-black/20 sm:hidden"
-                  aria-hidden
-                />
-              </>
+              <PopularTopicCard topics={popularTopics} />
             ) : (
               <LazyCard post={item.post} index={item.postIndex} />
             )}
