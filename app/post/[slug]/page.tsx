@@ -72,7 +72,7 @@ export default function PostPage({
                 <span className="shrink-0 text-lg font-black text-black sm:text-xl" aria-hidden>←</span>
                 <div className="min-w-0 flex-1">
                   <span className="block text-sm text-black/60 sm:text-base">이전글</span>
-                  <span className="mt-1 line-clamp-2 text-lg font-black text-black leading-tight group-hover:underline sm:text-xl">
+                  <span className="mt-1 line-clamp-2 text-lg font-black text-black leading-tight group-hover:underline group-active:underline sm:text-xl">
                     {prev.title}
                   </span>
                 </div>
@@ -95,7 +95,7 @@ export default function PostPage({
                 <span className="shrink-0 text-lg font-black text-black sm:text-xl" aria-hidden>→</span>
                 <div className="min-w-0 flex-1 text-left sm:text-right">
                   <span className="block text-sm text-black/60 sm:text-base">다음글</span>
-                  <span className="mt-1 line-clamp-2 text-lg font-black text-black leading-tight group-hover:underline sm:text-xl">
+                  <span className="mt-1 line-clamp-2 text-lg font-black text-black leading-tight group-hover:underline group-active:underline sm:text-xl">
                     {next.title}
                   </span>
                 </div>

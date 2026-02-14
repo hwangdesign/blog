@@ -137,7 +137,8 @@ button,
   border: 1px solid rgb(255 255 255 / 0.2);
   color: #fff;
 }
-.topic-box--light:hover {
+.topic-box--light:hover,
+.topic-box--light:active {
   background: #fff;
   border-color: #fff;
   color: #000;
@@ -146,7 +147,8 @@ button,
   border: 1px solid rgb(0 0 0 / 0.2);
   color: #000;
 }
-.topic-box--dark:hover {
+.topic-box--dark:hover,
+.topic-box--dark:active {
   background: #000;
   border-color: #000;
   color: #fff;
@@ -172,11 +174,15 @@ button,
   z-index: -1;
 }
 .topic-fill-hover:hover::before,
-.btn-fill-hover:hover::before {
+.topic-fill-hover:active::before,
+.btn-fill-hover:hover::before,
+.btn-fill-hover:active::before {
   clip-path: circle(200% at var(--mouse-x) var(--mouse-y));
 }
 .topic-fill-hover:hover,
-.btn-fill-hover:hover {
+.topic-fill-hover:active,
+.btn-fill-hover:hover,
+.btn-fill-hover:active {
   color: #fff !important;
 }
 .topic-fill-hover > *,
@@ -186,17 +192,20 @@ button,
   transition: color 0.2s ease-out;
 }
 /* 토픽 박스 + 채우기: 기존 배경 호버 제거 (::before가 대신 채움) */
-.topic-box.topic-fill-hover:hover {
+.topic-box.topic-fill-hover:hover,
+.topic-box.topic-fill-hover:active {
   background: transparent !important;
 }
 /* 다크 배경용 (메뉴): 흰색 채우기 */
 .topic-fill-hover--light::before {
   background: #fff;
 }
-.topic-fill-hover--light:hover {
+.topic-fill-hover--light:hover,
+.topic-fill-hover--light:active {
   color: #000 !important;
 }
-.topic-box.topic-fill-hover--light:hover {
+.topic-box.topic-fill-hover--light:hover,
+.topic-box.topic-fill-hover--light:active {
   border-color: #fff;
   background: transparent !important;
 }

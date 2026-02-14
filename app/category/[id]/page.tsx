@@ -18,7 +18,7 @@ export default function CategoryPage({
     return (
       <div className={`${CONTAINER} py-24 text-center`}>
         <p className="text-black">Category not found.</p>
-        <Link href="/" className="mt-8 inline-block text-black hover:underline">
+        <Link href="/" className="mt-8 inline-block text-black hover:underline active:underline">
           Back to blog
         </Link>
       </div>

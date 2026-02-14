@@ -48,7 +48,7 @@ function MenuContent({ onClose }: { onClose: () => void }) {
             key={cat.id}
             href={`/category/${cat.id}`}
             onClick={onClose}
-            className="block py-2 pl-0 pr-4 text-2xl font-medium text-white hover:underline"
+            className="block py-2 pl-0 pr-4 text-2xl font-medium text-white hover:underline active:underline"
           >
             {cat.label}
           </Link>
@@ -71,7 +71,7 @@ function MenuContent({ onClose }: { onClose: () => void }) {
         <Link
           href="#newsletter"
           onClick={onClose}
-          className="block mt-6 bg-brand-green px-6 py-4 text-center font-medium text-white hover:underline"
+          className="block mt-6 bg-brand-green px-6 py-4 text-center font-medium text-white hover:underline active:underline"
         >
           Subscribe
         </Link>
@@ -144,10 +144,10 @@ export function Header() {
             onClick={handleLogoClick}
             className="group/logo relative inline-block text-xl font-semibold text-black"
           >
-            <span className="inline-block transition-opacity duration-300 group-hover/logo:opacity-0">
+            <span className="inline-block transition-opacity duration-300 group-hover/logo:opacity-0 group-active/logo:opacity-0">
               texttotext
             </span>
-            <span className="absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover/logo:opacity-100">
+            <span className="absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover/logo:opacity-100 group-active/logo:opacity-100">
               to_home
             </span>
           </Link>

@@ -65,7 +65,7 @@ export function Footer() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black transition-opacity hover:opacity-70 focus:opacity-70 focus:outline-none"
+              className="text-black transition-opacity hover:opacity-70 active:opacity-70 focus:opacity-70 focus:outline-none"
               aria-label={label}
             >
               {icon}

@@ -51,7 +51,7 @@ export function ShareButton({ title, url, className = "" }: ShareButtonProps) {
     <button
       type="button"
       onClick={handleClick}
-      className={`inline-flex items-center justify-center w-10 h-10 text-black transition-colors hover:opacity-70 rounded-none cursor-pointer ${className}`}
+      className={`inline-flex items-center justify-center w-10 h-10 text-black transition-colors hover:opacity-70 active:opacity-70 rounded-none cursor-pointer ${className}`}
       aria-label={copied ? "링크 복사됨" : "공유하기"}
       title={copied ? "링크 복사됨" : "공유하기"}
     >

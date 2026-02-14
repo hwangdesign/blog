@@ -1,0 +1,7 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/category/[id]/page": "/category/[id]",
+  "/post/[slug]/page": "/post/[slug]",
+  "/topic/[slug]/page": "/topic/[slug]",
+  "/page": "/"
+}
