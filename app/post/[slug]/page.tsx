@@ -9,6 +9,15 @@ import { PostLatestSection } from "@/components/PostLatestSection";
 import { PostPageWithBackground } from "@/components/PostPageWithBackground";
 import { CONTAINER, CONTAINER_SECTION, TOPIC_FILL_HOVER } from "@/lib/classes";
 
+/** rss-filter-bot 본문 전처리: 상단 중복 이미지 제거, 줄바꿈 유지 */
+function processPostContent(content: string, headerImageUrl?: string): string {
+  // 본문 최상단 figure(상단 이미지와 중복) 제거
+  let processed = content.replace(/<figure[^>]*>[\s\S]*?<\/figure>\s*/i, "");
+  // HTML은 \n을 무시하므로 <br>로 변환해 문단 구분 유지
+  processed = processed.replace(/\n/g, "<br>");
+  return processed;
+}
+
 export default function PostPage({
   params,
 }: {
@@ -56,8 +65,10 @@ export default function PostPage({
         {post.content ? (
           post.content.includes("<") ? (
             <div
-              className="text-sm text-black sm:text-base prose-img:max-w-full prose-figure:my-4"
-              dangerouslySetInnerHTML={{ __html: post.content }}
+              className="text-sm text-black sm:text-base leading-[1.8] prose-img:max-w-full prose-figure:my-4 [&_br]:block"
+              dangerouslySetInnerHTML={{
+                __html: processPostContent(post.content, post.image),
+              }}
             />
           ) : (
             <div className="text-sm text-black whitespace-pre-line sm:text-base">
